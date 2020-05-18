@@ -1,0 +1,26 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+enableInlineShortcodes = true
+title = "Struggles with the bits"
+paginate = 10
+theme = "Niello"
+staticDir = ["static", "themes/Niello/static"]
+disqusShortname = "struggles-with-technologies"
+
+[params]
+    keywords = "Programming, Computer Science, Operating Systems, Python, Go, Perl, Rust, C, Databases, Oracle, PostGres"
+    author = "Abdou Seck"
+    description = "Daily struggles with technologies I work with or intend to work with"
+    location = "USA"
+    header_title = "Welcome to the struggles"
+
+[menu]
+    [[menu.niello]]
+    name = "Posts"
+    url = "/"
+    weight = 1
+    [[menu.niello]]
+    name = "About"
+    url = "/post/about/"
+    weight = 2
+
