@@ -1,0 +1,18 @@
+<footer>
+    <div>
+    {{ if .Site.Params.copyright }}
+        {{ .Site.Params.copyright | safeHTML }}
+    {{ else }}
+        UNLICENSE {{ .Date.Format "2006" }} by <a href="https://github.com/abdouseck" target="_blank">Abdou Seck</a>.
+    {{ end }}
+    </div>
+</footer>
+<footer style="padding-top: 0%;">
+    <div style="padding-top: 0%;">
+        {{ if .Site.Params.basetemplate }}
+            {{ .Site.Params.basetemplate | safeHTML }}
+        {{ else }}
+            {{ `Base template from <a href="https://github.com/guangmean/Niello" target="_blank">Niello</a>.` | safeHTML }}
+        {{ end }}
+    </div>
+</footer>

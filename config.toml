@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://struggleswith.com"
 languageCode = "en-us"
 enableInlineShortcodes = true
 title = "Struggles with the bits"
