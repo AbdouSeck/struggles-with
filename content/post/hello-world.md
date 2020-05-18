@@ -1,6 +1,6 @@
 ---
 title: "Struggles with GCP Cloud Functions Stacktrace"
-date: 2020-05-11T17:00:24-04:00
+date: 2020-05-18T17:00:24-04:00
 draft: false
 keywords: ["GCP", "Cloud Functions", "Stacktrace", "exception handling", "logging", "error reporting"]
 description: "Struggles with inspecting GCP Cloud Functions raised exceptions"
