@@ -10,7 +10,7 @@ I decided to explore restructuring some of our ETL processes that feed data to `
 However, as you may have noticed from [my about me page](/post/about), I don't work for Google or Amazon. We don't just have hardware with tons of storage waiting for me to fill it up. I have no VM with storage above 50 Gb dedicated to a non-database file system. Only the database file systems get to go past that hard limit. In many ways, this makes sense since compression tools and log aggregators have gotten very good over the years. But in any case, I don't want to keep data files lying around on machines with somewhat limited storage once I have processed them. But I still have to process tons of data every day and push it to `BigQuery`. So, the answer had to be somewhere between `Storage` and `BigQuery`. And, you guessed it right! It's `Cloud Functions`.
 These suckers are so good that they will let you trigger some cool operations just because a file got dropped off in a given `Storage` bucket. The cool kids with a certain "Web Services" persuasion will say: _but this is exactly what lambdas do!_. And then, I say: _cooool!_.
 
-So, how do we go from local files to stacktraces on some public cloud? If you're already bored reading this, the answer is write some buggy/crashing code, then `gcloud functions deploy`, and finally `gstuil cp`. But, for those of us with a modicum of patience, let's find out in a much more elegant manner.
+So, how do we go from local files to stacktraces on some public cloud? If you're already bored reading this, the answer is: write some buggy/crashing code, then `gcloud functions deploy`, and finally `gstuil cp`. But, for those of us with a modicum of patience, let's find out in a much more elegant manner.
 
 > ### Deploying a function
 
@@ -27,7 +27,7 @@ The deployment shell script looks like the following:
 
 Looking at that python script, there are so many places where something could go wrong:
 
->   1. Line 17 makes this wield assumption that the `PROJECT_ID` environment variable is actually set. It was provided to `gcloud functions deploy` via the `--env-vars-file` option, but it may very well be possible that it will not actually propagate.
+>   1. Line 17 makes this wild assumption that the `PROJECT_ID` environment variable is actually set. It was provided to `gcloud functions deploy` via the `--env-vars-file` option, but it may very well be possible that it will not actually propagate.
 >   2. The subsquent bit of code after that (lines 18-21) does assume that `GCP` will run our function on a unix machine, since we're assuming that `os.path.join` will use `/` for a path separator.
 >   3. Line 23 makes this wild assumption that every file dropped off in our bucket is going to always have a name with at least one underscore; meaning that we can always get the values `ds` and `tbl` without hitting a `ValueError` exception complaining about there not being enough values to unpack.
 >   4. There is also this highly unlikely scenario where between the time the function is triggered to run and the time it reaches line number 46, someone crazy fast person goes ahead and deletes the copied file or even the bucket itself. As a result, we would end trying to load a file that's no longer there.
