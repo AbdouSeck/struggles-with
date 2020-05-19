@@ -1,16 +1,21 @@
 ---
-title: "Struggles with GCP Cloud Functions Stacktrace"
+title: "Struggles with a GCP Cloud Functions Stacktrace"
 date: 2020-05-18T17:00:24-04:00
 draft: false
 keywords: ["GCP", "Cloud Functions", "Stacktrace", "exception handling", "logging", "error reporting"]
 description: "Struggles with inspecting GCP Cloud Functions raised exceptions"
 ---
 
-I decided to explore restructuring some of our ETL processes that feed data to `BigQuery` in order to have them stop saving data files locally. Currently, we pull data from multiple sources, apply some transformations to them, save local copies of the transformations as well as push the latter to `BigQuery`. In doing this, we essentially make it possible for our on-premise silos to tap into those locally saved files.
-However, as you may have noticed from [my about me page](/post/about), I don't work for Google or Amazon. We don't just have hardware with tons of storage waiting for me to fill it up. I have no VM with storage above 50 Gb dedicated to a non-database file system. Only the database file systems get to go past that hard limit. In many ways, this makes sense since compression tools and log aggregators have gotten very good over the years. But in any case, I don't want to keep data files lying around on machines with somewhat limited storage once I have processed them. But I still have to process tons of data every day and push it to `BigQuery`. So, the answer had to be somewhere between `Storage` and `BigQuery`. And, you guessed it right! It's `Cloud Functions`.
+I decided to explore restructuring some of our ETL processes that feed data to `BigQuery` in order to have them stop saving data files locally. Currently, we pull data from multiple sources, apply some transformations to them, save local copies of the transformations as well as push the latter to `BigQuery`. In doing this, we essentially make it possible for our on-premise data silos to tap into those locally saved files.
+However, as you may have noticed from [my about me page](/post/about), I don't work for Google or Amazon. We don't just have hardware with tons of storage waiting for me to fill up. I have no VM with a storage capacity above 50 Gb that is dedicated to a non-database file system. Only the database file systems get to go past that hard limit. In many ways, this makes sense since compression tools and log aggregators have gotten very good over the years. So, I don't want to keep data files lying around on machines with somewhat limited storage once I have processed them. But I still have to process tons of data every day and push it to `BigQuery`. Of course, the answer had to lie somewhere between `Storage` and `BigQuery`. And, you guessed it right! It's `Cloud Functions`.
 These suckers are so good that they will let you trigger some cool operations just because a file got dropped off in a given `Storage` bucket. The cool kids with a certain "Web Services" persuasion will say: _but this is exactly what lambdas do!_. And then, I say: _cooool!_.
 
-So, how do we go from local files to stacktraces on some public cloud? If you're already bored reading this, the answer is: write some buggy/crashing code, then `gcloud functions deploy`, and finally `gstuil cp`. But, for those of us with a modicum of patience, let's find out in a much more elegant manner.
+So, how do we go from local files to stacktraces on some public cloud? If you're already bored reading this, the answer is:
+1.  write some buggy/crashing code,
+2.  then `gcloud functions deploy`,
+3.  and finally `gstuil cp`.
+
+But, for those of us with a modicum of patience, let's find out in a much more elegant manner.
 
 > ### Deploying a function
 
@@ -33,7 +38,7 @@ Looking at that python script, there are so many places where something could go
 >   4. There is also this highly unlikely scenario where between the time the function is triggered to run and the time it reaches line number 46, someone crazy fast person goes ahead and deletes the copied file or even the bucket itself. As a result, we would end trying to load a file that's no longer there.
 >   5. Last, but far from being least, we have the `wait_for_job` function throw a `RuntimeError` if the load job is unsuccessful.
 
-Any one of these scenarios could cause the script to throw an error. So, it's very vital that we be able to see some type of logs when the script raises some exception. You'll be happy to know that the logs do exist and can be fetched--I mean, this is `Google` after all. In any cases, when your script runs, you can inspect most the available logs from within your `GCP` console or by using `gcloud logs` in your terminal.
+Any one of these scenarios could cause the script to throw an error. So, it's very vital that we be able to see some type of logs when the script raises some exception. You'll be happy to know that the logs do exist and can be fetched--I mean, this is `Google` after all. In any case, when your script runs, you can inspect most the available logs from within your `GCP` console or by using `gcloud logs` in your terminal.
 
 > ### The actual struggles
 
