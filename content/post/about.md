@@ -3,7 +3,7 @@ title: "About"
 date: 2020-05-13T13:22:24-04:00
 draft: false
 ---
-I am a database developer with experience in web development. I write ETL processes that make use of a wide array of technologies ranging from single server jobs to distributed systems. I am fairly experienced with Oracle and PostGres, and I, once upon a time, used SQL Server and MySQL.
+My name is Abdou Seck, and I am a database developer with experience in web development. I write ETL processes that make use of a wide array of technologies ranging from single server jobs to distributed systems. I am fairly experienced with Oracle and PostGres, and I, once upon a time, used SQL Server and MySQL.
 
 I am a huge fan of GCP's `BigQuery` and `Storage` products. I also find `Cloud Functions`, `Pub/Sub` and `Dataflow` instrumental in stitching together realtime data warehouses.
 

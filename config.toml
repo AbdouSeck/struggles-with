@@ -13,6 +13,7 @@ disqusShortname = "struggles-with-technologies"
     description = "Daily struggles with technologies I work with or intend to work with"
     location = "USA"
     header_title = "Welcome to the struggles"
+    google_gtag = "UA-47580845-2"
 
 [menu]
     [[menu.niello]]

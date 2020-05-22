@@ -23,6 +23,8 @@
                     <div class="less">
                         <time>Published: {{ .PublishDate.Format "Monday, Jan 2, 2006" }}</time>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{{ .ReadingTime }} minute read&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Using {{ .WordCount }} words
                     </div>
+                    {{ else }}
+                    <div style="margin-left:33%;"><img src="/img/abdou.jpg" title="A dopey picture of me" alt="A dopey picture of me" width="40%"></div>
                     {{ end }}
                     <div class="em">{{ .Content | safeHTML }}</div>
                     <br />
