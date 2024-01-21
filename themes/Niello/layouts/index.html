@@ -9,11 +9,6 @@
     <![endif]-->` | safeHTML }}
 
     <!-- Add your site or application content here -->
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id={{- .Site.Params.google_tag_manager_id -}}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div class="flex-column">
         {{ partial "banner.html" . }}
         <div class="home">
@@ -56,5 +51,10 @@
 
 
   {{ partial "foot.html" . }}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id={{- .Site.Params.google_tag_manager_id -}}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 </body>
 </html>
