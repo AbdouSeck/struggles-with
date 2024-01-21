@@ -14,6 +14,7 @@ disqusShortname = "struggles-with-technologies"
     location = "USA"
     header_title = "Welcome to the struggles"
     google_gtag = "G-2YQ5DVYZHN"
+    google_tag_manager_id = "GTM-WCB8RPWS"
 
 [menu]
     [[menu.niello]]
