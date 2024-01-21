@@ -2,12 +2,13 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47580845-2"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{- .Site.Params.google_gtag -}}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+
       gtag('config', '{{- .Site.Params.google_gtag -}}');
     </script>
     {{ partial "title.html" . }}
@@ -16,7 +17,7 @@
     <meta name="description" content="{{- .Site.Params.description -}}">
     <meta name="author" content="{{- .Site.Params.author -}}">
     {{ else }}
-    <meta name="keywords" content="{{ with .Keywords }} {{- delimit . ", " -}} {{ end }}">
+    <meta name="keywords" content='{{ with .Keywords }} {{- delimit . ", " -}} {{ end }}'>
     <meta name="description" content="{{ with .Description }} {{- . -}} {{ end }}">
     {{ end }}
     <link rel="stylesheet" href="{{.Site.BaseURL | relLangURL}}css/highlight.min.css">
@@ -29,7 +30,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{.Site.BaseURL | relLangURL}}img/favicon-16x16.png">
     <link rel="manifest" href="{{.Site.BaseURL | relLangURL}}img/site.webmanifest">
     {{ if .Site.Params.google_ad_client }}
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: "{{ .Site.Params.google_ad_client }}",
